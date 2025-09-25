@@ -16,4 +16,8 @@
     <loc>/registration.html</loc>
     <priority>0.7</priority>
   </url>
+  <url>
+    <loc>/cart.html</loc>
+    <priority>0.7</priority>
+  </url>
 </urlset>

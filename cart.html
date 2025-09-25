@@ -223,32 +223,6 @@
         document.querySelector('.fa-bars').parentElement.addEventListener('click', function() {
             document.querySelector('.mobile-menu').classList.toggle('hidden');
         });
-
-        // Обновление количества товаров
-        document.querySelectorAll('.fa-plus').forEach(button => {
-            button.parentElement.addEventListener('click', function() {
-                const countElement = this.parentElement.querySelector('span');
-                let count = parseInt(countElement.textContent);
-                countElement.textContent = count + 1;
-                updateTotal();
-            });
-        });
-
-        document.querySelectorAll('.fa-minus').forEach(button => {
-            button.parentElement.addEventListener('click', function() {
-                const countElement = this.parentElement.querySelector('span');
-                let count = parseInt(countElement.textContent);
-                if (count > 1) {
-                    countElement.textContent = count - 1;
-                    updateTotal();
-                }
-            });
-        });
-
-        function updateTotal() {
-            // Здесь можно добавить логику пересчета общей суммы
-            console.log('Обновление суммы корзины');
-        }
     </script>
 </body>
 </html>
