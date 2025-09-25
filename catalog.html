@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мебель Тимохи - Каталог</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="tailwindconfig.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+            background-color: #F9F6F1;
+        }
+        
+        .cart-notification {
+            display: none;
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background-color: #8B4513;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 1000;
+            animation: fadeIn 0.5s, fadeOut 0.5s 2.5s forwards;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes fadeOut {
+            from { opacity: 1; transform: translateY(0); }
+            to { opacity: 0; transform: translateY(-20px); }
+        }
+    </style>
+</head>
+<body class="font-inter bg-light text-secondary">
+    <!-- Шапка -->
+    <header class="fixed w-full bg-white shadow-md z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="index.html" class="flex items-center text-xl font-bold text-secondary">
+                <i class="fas fa-couch text-primary mr-2 text-2xl"></i>
+                Мебель Тимохи
+            </a>
+            <div class="hidden md:flex items-center space-x-6">
+                <nav class="flex space-x-8">
+                    <a href="index.html#categories" class="hover:text-primary font-medium">Категории</a>
+                    <a href="index.html#about" class="hover:text-primary font-medium">О нас</a>
+                    <a href="catalog.html" class="hover:text-primary font-medium">Каталог</a>
+                </nav>
+                <div class="relative">
+                    <a href="#cart" class="py-2 px-4 rounded-full font-medium border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300 flex items-center">
+                        <i class="fas fa-shopping-cart mr-2"></i> Корзина
+                        <span id="cart-count" class="ml-2 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">0</span>
+                    </a>
+                </div>
+                <a href="authorization.html" class=" py-2 px-6 rounded-full border-2 border-primary bg-white transition-all hover:bg-primary text-primary hover:text-white font-medium">Войти</a>
+            </div>
+            
+            <button class="md:hidden text-gray-600 focus:outline-none">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+        </div>
+        
+        <!-- Мобильное меню -->
+        <div class="mobile-menu hidden md:hidden bg-white py-4 px-4 border-t">
+            <div class="flex flex-col space-y-3">
+                <a href="index.html#categories" class="hover:text-primary font-medium">Категории</a>
+                <a href="index.html#about" class="hover:text-primary font-medium">О нас</a>
+                <a href="catalog.html" class="text-primary font-medium">Каталог</a>
+                <a href="#cart" class="hover:text-primary font-medium flex items-center">
+                    <i class="fas fa-shopping-cart mr-2"></i> Корзина
+                    <span id="mobile-cart-count" class="ml-2 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Каталог -->
+    <section class="pt-32 pb-16">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center text-secondary mb-12 relative pb-3 after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-20 after:h-1 after:bg-primary">
+                Каталог мебели
+            </h2>         
+            <!-- Фильтры -->
+            <div class="flex flex-wrap justify-center gap-4">
+        
+        <div class="relative search-container">
+            <div class="relative mb-8">
+                <input 
+                    type="text" 
+                    class="w-full py-4 pl-12 pr-6 text-lg rounded-2xl shadow-lg search-input border-2 border-transparent focus:border-accent focus:outline-none transition-all duration-300" placeholder="Введите запрос..." id="searchInput">
+                <div class="absolute left-4 top-0 h-full flex items-center justify-center">
+                    <i class="fas fa-search text-gray-400 text-lg"></i>
+                </div>
+          </div>
+ <!-- Сетка товаров -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="product-grid">
+                <!-- Товары будут загружены динамически -->
+                <div class="col-span-full text-center py-8">
+                    <div class="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+                    <p class="mt-4 text-gray-600">Загрузка товаров...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Футер -->
+      <footer class="bg-secondary text-light py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-semibold mb-4 relative pb-3 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-10 after:h-1 after:bg-primary">О компании</h3>
+                    <p class="text-light">Мебельный магазин "Мебель Тимохи" - качественная мебель для вашего дома с 2025 года. Создаем уют вместе с вами!</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4 relative pb-3 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-10 after:h-1 after:bg-primary">Контакты</h3>
+                    <div class="space-y-2 text-light">
+                        <p class="flex items-center"><i class="fas fa-map-marker-alt text-accent mr-3"></i> г. Новосибирск ул. Пушкина</p>
+                        <p class="flex items-center"><i class="fas fa-phone text-accent mr-3"></i> 8 800 555 35 35</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12 pt-8 text-center text-light">
+                <p>&copy; 2025 Мебель Тимохи. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+ <script type="module" src="catalog.js"></script>
+</body>
+</html>

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мебель Тимохи</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="tailwindconfig.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+            background-color: #F9F6F1;
+            scrollbar-width: none
+        }
+        .hero-bg {
+            background: linear-gradient(115deg, rgba(40, 35, 35, 0.85) 0%, rgba(60, 55, 55, 0.8) 100%), 
+                        url('https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-image {
+            transition: transform 0.5s ease;
+        }
+        
+        .service-card:hover .service-image {
+            transform: scale(1.05);
+        }
+        
+        @media (max-width: 768px) {
+            .floating-icon {
+                display: none;
+            }
+            
+            .hero-bg::before {
+                background-size: 300px;
+            }
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+    <header class="fixed w-full bg-white shadow-md z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="#" class="flex items-center text-xl font-bold text-secondary">
+                <i class="fas fa-couch text-primary mr-2 text-2xl"></i>
+                Мебель Тимохи
+            </a>
+            
+            <div class="hidden md:flex items-center space-x-6">
+                <nav class="flex space-x-8">
+                    <a href="#categories" class="hover:text-primary font-medium">Категории</a>
+                    <a href="#about" class="hover:text-primary font-medium">О нас</a>
+                    <a href="catalog.html" class="hover:text-primary font-medium">Каталог</a>
+                </nav>
+                <div class="relative">
+                    <a href="#cart" class="py-2 px-4 rounded-full font-medium border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300 flex items-center">
+                        <i class="fas fa-shopping-cart mr-2"></i> Корзина
+                        <span id="cart-count" class="ml-2 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">0</span>
+                    </a>
+                </div>
+                <a href="authorization.html" class=" py-2 px-6 rounded-full border-2 border-primary bg-white transition-all hover:bg-primary text-primary hover:text-white font-medium">Войти</a>
+            </div>
+            
+            <button class="md:hidden text-gray-600 focus:outline-none">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+        </div>
+        
+        <div class="mobile-menu hidden md:hidden bg-white py-4 px-4 border-t">
+            <div class="flex flex-col space-y-3">
+                <a href="#categories" class="hover:text-primary font-medium">Категории</a>
+                <a href="#about" class="hover:text-primary font-medium">О нас</a>
+                <a href="catalog.html" class="hover:text-primary font-medium">Каталог</a>
+                <a href="authorization.html" class="hover:text-primary font-medium">Войти</a>
+            </div>
+        </div>
+    </header>
+    <main>
+    <section class="hero-bg pt-32 pb-24 text-white text-center relative">
+        <div class="container mx-auto px-4">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6">Создайте уют в вашем <span class="text-accent">доме</span></h1>
+            <p class="text-xl md:text-2xl mb-10 max-w-3xl mx-auto">Эксклюзивная мебель для вашего интерьера с доставкой и установкой</p>
+            
+            <div class="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-6 mb-12">
+                </a>
+                <a href="catalog.html" class="bg-transparent hover:bg-white hover:text-secondary border-2 border-white text-white font-bold py-4 px-10 rounded-full transition duration-300 transform hover:-translate-y-1 inline-flex items-center">
+                    <i class="fas fa-couch mr-3"></i> Каталог товаров
+                </a>
+            </div>
+            
+            <div class="flex flex-wrap justify-center gap-6 mt-16">
+                <div class="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-lg p-4 w-40">
+                    <i class="fas fa-truck-loading text-3xl text-accent mb-2"></i>
+                    <p class="font-semibold">Бесплатная доставка</p>
+                </div>
+                <div class="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-lg p-4 w-40">
+                    <i class="fas fa-tools text-3xl text-accent mb-2"></i>
+                    <p class="font-semibold">Сделаем сборку</p>
+                </div>
+                <div class="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-lg p-4 w-40">
+                    <i class="fas fa-medal text-3xl text-accent mb-2"></i>
+                    <p class="font-semibold">Гарантия 3 года</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="categories" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center text-secondary mb-12 relative pb-3 after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-20 after:h-1 after:bg-primary">
+                Категории мебели
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="service-card bg-light rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:-translate-y-2">
+                    <div class="h-48 overflow-hidden">
+                        <div class="service-image h-full bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1540574163026-643ea20ade25?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-secondary mb-2">Гостиная</h3>
+                        <p class="text-gray-600 mb-4">Диваны, кресла, TV-тумбы и стенки для вашей гостиной</p>
+                        <p class="text-primary font-bold text-lg">от 15 000 руб.</p>
+                    </div>
+                </div>
+                
+                <div class="service-card bg-light rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:-translate-y-2">
+                    <div class="h-48 overflow-hidden">
+                        <div class="service-image h-full bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-secondary mb-2">Спальня</h3>
+                        <p class="text-gray-600 mb-4">Кровати, шкафы, комоды и туалетные столики</p>
+                        <p class="text-primary font-bold text-lg">от 20 000 руб.</p>
+                    </div>
+                </div>
+                
+                <div class="service-card bg-light rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:-translate-y-2">
+                    <div class="h-48 overflow-hidden">
+                        <div class="service-image h-full bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1556911220-e15b29be8c8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-secondary mb-2">Кухня</h3>
+                        <p class="text-gray-600 mb-4">Кухонные гарнитуры, обеденные группы и стулья</p>
+                        <p class="text-primary font-bold text-lg">от 35 000 руб.</p>
+                    </div>
+                </div>
+                
+                <div class="service-card bg-light rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:-translate-y-2">
+                    <div class="h-48 overflow-hidden">
+                        <div class="service-image h-full bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1595428774223-ef52624120d2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-secondary mb-2">Офис</h3>
+                        <p class="text-gray-600 mb-4">Офисные кресла, столы и системы хранения</p>
+                        <p class="text-primary font-bold text-lg">от 10 000 руб.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-16 bg-light">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0 md:pr-10">
+                    <h2 class="text-3xl font-bold text-secondary mb-6 relative pb-3 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-20 after:h-1 after:bg-primary">
+                        О нашем магазине
+                    </h2>
+                    <p class="text-gray-700 mb-4">Мебельный магазин "Мебель Тимохи" работает на рынке с 2025 года. За это время мы помогли клиентам создать уют в их домах благодаря качественной мебели и внимательному отношению к каждому заказу.</p>
+                    <p class="text-gray-700 mb-4">Мы сотрудничаем с ведущими производителями мебели в России и Европе, что позволяет нам предлагать лучшие решения для вашего интерьера по доступным ценам.</p>
+                    <p class="text-gray-700 mb-6">Наши дизайнеры бесплатно помогут вам создать проект меблировки вашего помещения с учетом всех пожеланий и особенностей планировки.</p>
+                    </a>
+                </div>
+                <div class="md:w-1/2">
+                    <div class="bg-gray-300 h-80 rounded-lg shadow-md overflow-hidden">
+                        <div class="h-full bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    </main>
+
+    <footer class="bg-secondary text-light py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-semibold mb-4 relative pb-3 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-10 after:h-1 after:bg-primary">О компании</h3>
+                    <p class="text-light">Мебельный магазин "Мебель Тимохи" - качественная мебель для вашего дома с 2025 года. Создаем уют вместе с вами!</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4 relative pb-3 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-10 after:h-1 after:bg-primary">Контакты</h3>
+                    <div class="space-y-2 text-light">
+                        <p class="flex items-center"><i class="fas fa-map-marker-alt text-accent mr-3"></i> г. Новосибирск ул. Пушкина</p>
+                        <p class="flex items-center"><i class="fas fa-phone text-accent mr-3"></i> 8 800 555 35 35</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12 pt-8 text-center text-light">
+                <p>2025 Мебель Тимохи. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Мобильное меню
+        document.querySelector('.fa-bars').parentElement.addEventListener('click', function() {
+            document.querySelector('.mobile-menu').classList.toggle('hidden');
+        });
+        // Плавная прокрутка для якорных ссылок
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Закрываем мобильное меню после клика
+                    if (!document.querySelector('.mobile-menu').classList.contains('hidden')) {
+                        document.querySelector('.mobile-menu').classList.add('hidden');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
