@@ -107,20 +107,6 @@ document.addEventListener('DOMContentLoaded', function() {
         renderProducts(filtered);
     }
     
-    function filterProducts(category) {
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.classList.toggle('active', btn.getAttribute('data-category') === category);
-        });
-        
-        if (category === 'all') {
-            renderProducts(allProducts);
-            return;
-        }
-        
-        const filtered = allProducts.filter(product => product.categoryClass === category);
-        renderProducts(filtered);
-    }
-    
     // Инициализация
     loadProducts();
     

@@ -60,9 +60,9 @@
                     <a href="catalog.html" class="hover:text-primary font-medium">Каталог</a>
                 </nav>
                 <div class="relative">
-                    <a href="#cart" class="py-2 px-4 rounded-full font-medium border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300 flex items-center">
+                    <a href="cart.html" class="py-2 px-4 rounded-full font-medium border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300 flex items-center">
                         <i class="fas fa-shopping-cart mr-2"></i> Корзина
-                        <span id="cart-count" class="ml-2 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">0</span>
+                        <span id="cart-count" class="ml-2 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">2</span>
                     </a>
                 </div>
                 <a href="authorization.html" class=" py-2 px-6 rounded-full border-2 border-primary bg-white transition-all hover:bg-primary text-primary hover:text-white font-medium">Войти</a>
@@ -79,21 +79,29 @@
                 <a href="index.html#categories" class="hover:text-primary font-medium">Категории</a>
                 <a href="index.html#about" class="hover:text-primary font-medium">О нас</a>
                 <a href="catalog.html" class="text-primary font-medium">Каталог</a>
-                <a href="#cart" class="hover:text-primary font-medium flex items-center">
+                <a href="cart.html" class="hover:text-primary font-medium flex items-center">
                     <i class="fas fa-shopping-cart mr-2"></i> Корзина
                     <span id="mobile-cart-count" class="ml-2 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">0</span>
                 </a>
+                <a href="authorization.html" class="hover:text-primary font-medium">Войти</a>
             </div>
         </div>
     </header>
-
-    <!-- Каталог -->
+    <nav class="bg-light py-4 pt-24">
+        <div class="container mx-auto px-4">
+            <ol class="flex space-x-2 text-sm">
+                <li><a href="index.html" class="text-primary hover:underline">Главная</a></li>
+                <li><span class="text-gray-400">/</span></li>
+                <li class="text-gray-600">Каталог</li>
+            </ol>
+        </div>
+    </nav>
+    <main>
     <section class="pt-32 pb-16">
         <div class="container mx-auto px-4">
             <h2 class="text-3xl font-bold text-center text-secondary mb-12 relative pb-3 after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-20 after:h-1 after:bg-primary">
                 Каталог мебели
             </h2>         
-            <!-- Фильтры -->
             <div class="flex flex-wrap justify-center gap-4">
         
         <div class="relative search-container">
@@ -105,9 +113,7 @@
                     <i class="fas fa-search text-gray-400 text-lg"></i>
                 </div>
           </div>
- <!-- Сетка товаров -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="product-grid">
-                <!-- Товары будут загружены динамически -->
                 <div class="col-span-full text-center py-8">
                     <div class="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
                     <p class="mt-4 text-gray-600">Загрузка товаров...</p>
@@ -115,7 +121,7 @@
             </div>
         </div>
     </section>
-    <!-- Футер -->
+    </main>
       <footer class="bg-secondary text-light py-12">
         <div class="container mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
