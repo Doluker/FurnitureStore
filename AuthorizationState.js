@@ -4,16 +4,21 @@ import {auth } from './firebase.js';
 function setupAuthListener() {
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      console.log("Пользователь активен:", user.email);
       document.getElementById("SignIn").hidden = true;
       document.getElementById("Cart").hidden = false;
+      document.getElementById("Cart").classList.add('flex');
       document.getElementById("SignOut").hidden = false;
+      document.getElementById("MobileSignIn").hidden = true;
+      document.getElementById("MobileCart").hidden = false;
+      document.getElementById("MobileCart").classList.add('flex');
+      document.getElementById("MobileSignOut").hidden = false;
     } else {
-      // Пользователь вышел или не вошел.
-      console.log("Пользователь не авторизован.");
       document.getElementById("SignIn").hidden = false;
       document.getElementById("Cart").hidden = true;
       document.getElementById("SignOut").hidden = true;
+      document.getElementById("MobileSignIn").hidden = false;
+      document.getElementById("MobileCart").hidden = true;
+      document.getElementById("MobileSignOut").hidden = true;
     }
   });
 }

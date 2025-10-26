@@ -1,7 +1,8 @@
-import { signOut} from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
+import { signOut } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
 import { auth } from './firebase.js';
 
 async function signOutClient() {
+    // ... ваша функция signOutClient остается прежней ...
     try {
         await signOut(auth);
         Swal.fire({
@@ -9,7 +10,7 @@ async function signOutClient() {
             title: "Выход выполнен",
             text: "Вы успешно вышли из системы.",
         }).then(() => {
-             window.location.href = "index.html"
+            window.location.href = "index.html";
         });
     } catch (error) {
         console.error("Ошибка при выходе:", error);
@@ -20,14 +21,23 @@ async function signOutClient() {
         });
     }
 }
-// ✅ Правильный поиск по ID
-const signOutElement = document.getElementById('SignOut');
 
-// ❌ Неправильное событие 'submit', нужно 'click'
-if (signOutElement) {
-    signOutElement.addEventListener('click', (e) => {
-        // ... ваша функция выхода
-        e.preventDefault(); 
-        signOutClient();
-    });
-}
+// 🔥 Оборачиваем весь код, прикрепляющий слушатели, в DOMContentLoaded
+document.addEventListener('DOMContentLoaded', () => {
+    const signOutElement = document.getElementById('SignOut');
+    const mobileSignOutElement = document.getElementById('MobileSignOut');
+
+    if (signOutElement) {
+        signOutElement.addEventListener('click', (e) => {
+            e.preventDefault(); 
+            signOutClient();
+        });
+    }
+
+    if (mobileSignOutElement) {
+        mobileSignOutElement.addEventListener('click', (e) => {
+            e.preventDefault(); 
+            signOutClient();
+        });
+    }
+});

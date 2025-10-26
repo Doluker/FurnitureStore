@@ -15,12 +15,12 @@ document.addEventListener('DOMContentLoaded', function() {
     let userFavourites = {};
 
     async function loadFavourites() {
-        if (!USER_ID) {
+        if (USER_ID == null) {
         userFavourites = {}; // Обнуляем список избранного
         return; 
         }
         
-        try {    
+        try {
             const favouritesSnapshot = await get(ref(db, `Favourites/${USER_ID}`));
             console.log(USER_ID);
             if (favouritesSnapshot.exists()) {
@@ -32,7 +32,6 @@ document.addEventListener('DOMContentLoaded', function() {
                         userFavourites[productId] = item.IsFavourite;
                     }
                 });
-                console.log("Загружены избранные:", userFavourites);
             }
         } catch (error) {
             console.error("Ошибка загрузки избранного:", error);
@@ -40,6 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     async function toggleFavouriteStatus(button, productId, isCurrentlyFavourite) {
+        if (USER_ID != null) {
         const newState = !isCurrentlyFavourite;
         const icon = button.querySelector('i');
         
@@ -73,6 +73,14 @@ document.addEventListener('DOMContentLoaded', function() {
             
             alert('Не удалось сохранить изменения. Попробуйте еще раз.');
         }
+        }
+        else {
+            Swal.fire({
+            icon: "error",
+            title: "Ошибка добавления в избранное",
+            text: "Войдите в учетную запись",
+        });
+        }
     }
 
     // --- ФУНКЦИЯ СОЗДАНИЯ КАРТОЧКИ ---
@@ -82,35 +90,41 @@ document.addEventListener('DOMContentLoaded', function() {
 
         return `
             <div class="product-card bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:-translate-y-2" data-category="${product.categoryClass}">
-                <div class="h-56 overflow-hidden">
-                    <img src="${product.ImageURL}" 
-                        alt="${product.Name}" 
-                        class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
-                </div>
-                <div class="p-6">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="text-xl font-semibold text-secondary">${product.Name}</h3>
-                        <span class="bg-amber-500 text-gray-900 text-xs font-semibold px-2 py-1 rounded">${product.categoryName}</span>
-                    </div>
-                    <p class="text-gray-600 mb-4">${product.Description || 'Описание отсутствует'}</p>
-                    <div class="flex justify-between items-center">
-                        <p class="text-amber-600 font-bold text-lg">${product.Price ? product.Price.toLocaleString('ru-RU') : "0"} руб.</p>
-                        
-                        <button class="favorite-toggle text-primary bg-primary/10 w-10 h-10 rounded-full hover:bg-primary/20 flex items-center justify-center transition-colors duration-200 focus:outline-none ml-32"
-                            data-favorite="${isFavourite ? 'true' : 'false'}"
-                            data-product-id="${product.ID_Catalog}">
-                            <i class="${starClass} fa-star text-lg"></i>
-                        </button>
-                        
-                        <button class="add-to-cart bg-primary text-white px-4 py-2 rounded-lg hover:bg-amber-700 transition-colors duration-300 flex items-center" 
-                                data-id="${product.ID_Catalog}" 
-                                data-name="${product.Name}" 
-                                data-price="${product.Price}">
-                            <i class="fas fa-cart-plus mr-2"></i> В корзину
-                        </button>
-                    </div>
-                </div>
+    <div class="h-56 overflow-hidden">
+        <img src="${product.ImageURL}" 
+            alt="${product.Name}" 
+            class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
+    </div>
+    <div class="p-6">
+        <div class="flex justify-between items-start mb-2">
+            <h3 class="text-xl font-semibold text-secondary">${product.Name}</h3>
+            <span class="bg-amber-500 text-gray-900 text-xs font-semibold px-2 py-1 rounded">${product.categoryName}</span>
+        </div>
+        <p class="text-gray-600 mb-4">${product.Description || 'Описание отсутствует'}</p>
+        
+        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center">
+            
+            <p class="text-amber-600 font-bold text-lg mb-4 sm:mb-0">${product.Price ? product.Price.toLocaleString('ru-RU') : "0"} руб.</p>
+            
+            <div class="flex space-x-2 w-full sm:w-auto">
+
+                <button class="favorite-toggle text-primary bg-primary/10 w-10 h-10 rounded-full hover:bg-primary/20 flex items-center justify-center transition-colors duration-200 focus:outline-none flex-shrink-0"
+                    data-favorite="${isFavourite ? 'true' : 'false'}"
+                    data-product-id="${product.ID_Catalog}"
+                    title="Добавить в избранное">
+                    <i class="${starClass} fa-star text-lg"></i>
+                </button>
+                
+                <button class="add-to-cart bg-primary text-white px-4 py-2 rounded-lg hover:bg-amber-700 transition-colors duration-300 flex items-center justify-center flex-grow" 
+                    data-id="${product.ID_Catalog}" 
+                    data-name="${product.Name}" 
+                    data-price="${product.Price}">
+                    <i class="fas fa-cart-plus mr-2"></i> В корзину
+                </button>
             </div>
+            </div>
+        </div>
+</div>
         `;
     }
     
