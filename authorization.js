@@ -1,28 +1,13 @@
 // Подключение необходимых модулей Firebase через CDN
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
-import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
-
-// Конфигурация Firebase
-  const firebaseConfig = {
-    apiKey: "AIzaSyDnhSMYWVozNA64HO9nm7ZKDTOdvaFrzOI",
-    authDomain: "furniturestore-909f0.firebaseapp.com",
-    databaseURL: "https://furniturestore-909f0-default-rtdb.firebaseio.com",
-    projectId: "furniturestore-909f0",
-    storageBucket: "furniturestore-909f0.firebasestorage.app",
-    messagingSenderId: "543600154960",
-    appId: "1:543600154960:web:fe88956e216dde0c713455",
-    measurementId: "G-JJK3BMB1SB"
-  };
-
-// Инициализация Firebase
-const firebaseApp = initializeApp(firebaseConfig);
-const database = getDatabase(firebaseApp);
+import { ref, get } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
+import { signInWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
+import { db, auth } from './firebase.js';
 
 // Функция для входа пользователя
-async function loginUser(event) {
+async function SignIn(event) {
     event.preventDefault(); // Предотвращаем стандартное поведение формы
     
-    const email = document.getElementById("login").value.trim();
+    const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value.trim();
     const loginButton = document.getElementById("loginbutton");
 
@@ -40,28 +25,33 @@ async function loginUser(event) {
         // Показываем индикатор загрузки
         loginButton.disabled = true;
         loginButton.innerHTML = '<span class="loading">Вход...</span>';
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+        const uid = user.uid;
+        const clientRef = ref(db, `Authorization/${uid}`);
+        const snapshot = await get(clientRef);
 
-        // Получаем данные из базы
-        const authSnapshot = await get(ref(database, 'Authorization'));
-
-        const users = authSnapshot.val() || {};
-
-        // Находим пользователя
-        const user = Object.values(users).find(u => u && u.Login === email && u.Password === password);
-        
-        if (!user) {
-            throw new Error("Пользователь не найден");
+        let userRole = 0;
+        if (snapshot.exists()) {
+            userRole = snapshot.val().ID_Post; // Получаем роль
         }
         // Определяем роль и перенаправляем
         const rolePages = {
             1: 'admin.html',    // Админ
             2: 'catalog.html',    // Пользователь
         };
-
-        const redirectPage = rolePages[user.ID_Post] || 'personalaccount.html';
-        window.location.href = redirectPage;
-
-    } catch (error) {
+        const redirectPage = rolePages[userRole]
+        // 4. Успешный вход
+        Swal.fire({
+            icon: "success",
+            title: "Вход успешен",
+            text: `Добро пожаловать!.`,
+        }).then(() => {
+             // 5. Перенаправление или обновление UI
+             window.location.href = redirectPage; 
+        });
+        }
+        catch (error) {
         console.error('Ошибка входа:', error);
         Swal.fire({
             icon: "error",
@@ -80,4 +70,4 @@ async function loginUser(event) {
 }
 
 // Добавляем обработчик на форму, а не на кнопку
-document.querySelector('form').addEventListener('submit', loginUser);
+document.querySelector('form').addEventListener('submit', SignIn);

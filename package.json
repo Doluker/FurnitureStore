@@ -1,0 +1,24 @@
+{
+  "name": "public",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Doluker/FurnitureStore.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Doluker/FurnitureStore/issues"
+  },
+  "homepage": "https://github.com/Doluker/FurnitureStore#readme",
+  "description": "",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "firebase": "^12.4.0"
+  }
+}

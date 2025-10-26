@@ -1,61 +1,69 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
-import { getDatabase, ref, get, set} from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
+import { ref, set} from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
+import { createUserWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
+import { db, auth } from './firebase.js';
+const registrationForm = document.getElementById('registrationForm');
 
-// Конфигурация Firebase
-  const firebaseConfig = {
-    apiKey: "AIzaSyDnhSMYWVozNA64HO9nm7ZKDTOdvaFrzOI",
-    authDomain: "furniturestore-909f0.firebaseapp.com",
-    databaseURL: "https://furniturestore-909f0-default-rtdb.firebaseio.com",
-    projectId: "furniturestore-909f0",
-    storageBucket: "furniturestore-909f0.firebasestorage.app",
-    messagingSenderId: "543600154960",
-    appId: "1:543600154960:web:fe88956e216dde0c713455",
-    measurementId: "G-JJK3BMB1SB"
-  };
+async function saveClient(event) {
+    event.preventDefault();
 
-// Инициализация Firebase
-const firebaseApp = initializeApp(firebaseConfig);
-const database = getDatabase(firebaseApp);
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value.trim();
+    const confirmPassword = document.getElementById("confirm-password").value.trim();
 
-async function saveClient() {
-event.preventDefault()
-  const login = document.getElementById("login").value.trim();
-  const password = document.getElementById("password").value.trim();
-  const confirmPassword = document.getElementById("confirm-password").value.trim();
-  if (!login || !password || !confirmPassword) {
-    Swal.fire({
-      icon: "error",
-      title: "Ошибка",
-      text: "Введите все поля!",
-    });
-    return;   
-  }
-  else if (password != confirmPassword){
-    Swal.fire({
-      icon: "error",
-      title: "Ошибка",
-      text: "Пароли не совпадают!",
-    });
-    return; 
-  }
-      const clientsRef = ref(database, "Authorization");
-      const snapshot = await get(clientsRef);
-      const nextId = snapshot.exists()
-        ? Math.max(...Object.keys(snapshot.val()).map(Number)) + 1
-        : 1;
-
-      await set(ref(database, `Authorization/${nextId}`), {
-        ID_Authorization: nextId,
-        Login: login,
-        Password: password,
-        ID_Post: 2,
-      });
-
-      Swal.fire({
-        icon: "success",
-        title: "Успех",
-        text: "Новый клиент добавлен!",
-      });
-      window.location.href = "catalog.html"
+    if (!email || !password || !confirmPassword) {
+        Swal.fire({ icon: "error", title: "Ошибка", text: "Введите все поля!", });
+        return;
+    } else if (password.length < 6) {
+         Swal.fire({ icon: "error", title: "Ошибка", text: "Пароль должен быть не менее 6 символов.", });
+         return;
+    } else if (password !== confirmPassword) {
+        Swal.fire({ icon: "error", title: "Ошибка", text: "Пароли не совпадают!", });
+        return;
     }
-document.querySelector('form').addEventListener('submit',saveClient)
+
+    try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+        const uid = user.uid;
+
+        await set(ref(db, `Authorization/${uid}`), {
+             ID_Authorization: uid, 
+             Registration_Email: email, 
+             ID_Post: 2,
+        });
+
+        Swal.fire({
+            icon: "success",
+            title: "Успех",
+            text: "Новый клиент зарегистрирован и добавлен в базу!",
+        }).then(() => {
+            window.location.href = "catalog.html";
+        });
+
+    } catch (error) {
+        let errorText = "Произошла неизвестная ошибка.";
+        
+        switch (error.code) {
+            case 'auth/email-already-in-use':
+                errorText = "Этот email уже зарегистрирован.";
+                break;
+            case 'auth/invalid-email':
+                errorText = "Некорректный формат email.";
+                break;
+            case 'auth/weak-password':
+                errorText = "Пароль слишком слабый (минимум 6 символов).";
+                break;
+            default:
+                console.error("Firebase Auth Error:", error.message);
+                break;
+        }
+
+        Swal.fire({
+            icon: "error",
+            title: "Ошибка регистрации",
+            text: errorText,
+        });
+    }
+}
+
+registrationForm.addEventListener('submit', saveClient);
