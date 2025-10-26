@@ -5,7 +5,7 @@ import { db, auth } from './firebase.js';
 
 // Функция для входа пользователя
 async function SignIn(event) {
-    event.preventDefault(); // Предотвращаем стандартное поведение формы
+    event.preventDefault();
     
     const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value.trim();
@@ -22,7 +22,6 @@ async function SignIn(event) {
     }
 
     try {
-        // Показываем индикатор загрузки
         loginButton.disabled = true;
         loginButton.innerHTML = '<span class="loading">Вход...</span>';
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
@@ -33,12 +32,11 @@ async function SignIn(event) {
 
         let userRole = 0;
         if (snapshot.exists()) {
-            userRole = snapshot.val().ID_Post; // Получаем роль
+            userRole = snapshot.val().ID_Post;
         }
-        // Определяем роль и перенаправляем
         const rolePages = {
-            1: 'admin.html',    // Админ
-            2: 'catalog.html',    // Пользователь
+            1: 'admin.html',
+            2: 'catalog.html',
         };
         const redirectPage = rolePages[userRole]
         // 4. Успешный вход
