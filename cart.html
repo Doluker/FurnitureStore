@@ -31,14 +31,30 @@
                     <a href="index.html#about" class="hover:text-primary font-medium">О нас</a>
                     <a href="catalog.html" class="hover:text-primary font-medium">Каталог</a>
                 </nav>
-                <div id="Cart" class="relative">
-                    <a href="cart.html" class="py-2 px-4 rounded-full font-medium border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300 flex items-center">
-                        <i class="fas fa-shopping-cart mr-2"></i> Корзина
-                        <span id="cart-count" class="ml-2 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">2</span>
-                    </a>
-                </div>
+                <div id="ProfileDropdown" class="relative">
+        <button id="ProfileButton" class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary transition-shadow duration-200 hover:shadow-lg focus:outline-none" aria-expanded="false" aria-controls="ProfileMenu">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfdeQHOYCOXOexK_QDEY3Ws_lkCY8mWEfRuQ&s" alt="Аватар профиля" class="w-full h-full object-cover">
+        </button>
+        <div id="ProfileMenu" class="absolute right-0 mt-3 w-48 bg-white rounded-lg shadow-xl py-2 hidden origin-top-right ring-1 ring-black ring-opacity-5" role="menu" aria-orientation="vertical" aria-labelledby="ProfileButton">
+            <div class="px-4 py-2 text-sm text-gray-700 border-b mb-1">
+                <p class="font-semibold">Привет, Пользователь!</p>
+            </div>
+            <a href="profile.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-light transition-colors duration-150 flex items-center" role="menuitem">
+                <i class="fas fa-user mr-2 w-4"></i> Мой профиль
+            </a>
+            <a href="cart.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-light transition-colors duration-150 flex items-center" role="menuitem">
+                <i class="fas fa-shopping-cart mr-2 w-4"></i> Корзина
+            </a>
+            <a href="favourites.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-light transition-colors duration-150 flex items-center" role="menuitem">
+                <i class="fas fa-star mr-2 w-4"></i> Избранное
+            </a>
+            <div class="border-t my-1"></div>
+            <button id="SignOut" class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors duration-150 flex items-center" role="menuitem">
+                <i class="fas fa-sign-out-alt mr-2 w-4"></i> Выйти
+            </button>
+        </div>
+    </div>
                <a id="SignIn" href="authorization.html" class=" py-2 px-6 rounded-full border-2 border-primary bg-white transition-all hover:bg-primary text-primary hover:text-white font-medium">Войти</a>
-                <button id="SignOut" class=" py-2 px-6 rounded-full border-2 border-primary bg-white transition-all hover:bg-primary text-primary hover:text-white font-medium">Выйти</button>
             </div>
             
             <button class="md:hidden text-gray-600 focus:outline-none">
@@ -227,6 +243,8 @@
             document.querySelector('.mobile-menu').classList.toggle('hidden');
         });
     </script>
+    <script src="navigation.js"></script>
+    <script src="profileDropdown.js"></script>
     <script rel="preload" type="module" src="AuthorizationState.js"></script>
     <script type="module" src="SignOut.js"></script>
 </body>

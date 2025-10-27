@@ -2,7 +2,6 @@ import { signOut } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth
 import { auth } from './firebase.js';
 
 async function signOutClient() {
-    // ... ваша функция signOutClient остается прежней ...
     try {
         await signOut(auth);
         Swal.fire({
@@ -22,7 +21,6 @@ async function signOutClient() {
     }
 }
 
-// 🔥 Оборачиваем весь код, прикрепляющий слушатели, в DOMContentLoaded
 document.addEventListener('DOMContentLoaded', () => {
     const signOutElement = document.getElementById('SignOut');
     const mobileSignOutElement = document.getElementById('MobileSignOut');
