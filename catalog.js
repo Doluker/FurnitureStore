@@ -1,19 +1,24 @@
 import { ref, get, set, remove} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 import { onAuthStateChanged} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 import { db, auth } from './firebase.js';
+
 document.addEventListener('DOMContentLoaded', function() {
     let USER_ID = null; 
     onAuthStateChanged(auth, (user) => {
         if (user) {
-            USER_ID = user.uid;
-            loadProducts() 
+           USER_ID = user.uid;
+           loadProducts() 
         } else {
-            loadProducts()
+           loadProducts()
         }
     });
+    
     let allProducts = [];
     let userFavourites = {};
+    const searchInput = document.getElementById('searchInput');
+    const sortSelect = document.getElementById('sortSelect'); // Новый элемент
 
+    // ... (Функции loadFavourites и toggleFavouriteStatus остаются без изменений) ...
     async function loadFavourites() {
         if (USER_ID == null) {
         userFavourites = {}; // Обнуляем список избранного
@@ -22,7 +27,6 @@ document.addEventListener('DOMContentLoaded', function() {
         
         try {
             const favouritesSnapshot = await get(ref(db, `Favourites/${USER_ID}`));
-            console.log(USER_ID);
             if (favouritesSnapshot.exists()) {
                 const favouritesData = favouritesSnapshot.val();
                 userFavourites = {};
@@ -83,51 +87,53 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // --- ФУНКЦИЯ СОЗДАНИЯ КАРТОЧКИ ---
+    // --- ФУНКЦИЯ СОЗДАНИЯ КАРТОЧКИ (Остается без изменений) ---
     function createProductCard(product) {
-        const isFavourite = userFavourites[product.ID_Catalog] === true;
-        const starClass = isFavourite ? 'fas' : 'far';
+        // ... (Ваша функция createProductCard) ...
+         const isFavourite = userFavourites[product.ID_Catalog] === true;
+         const starClass = isFavourite ? 'fas' : 'far';
 
-        return `
-            <div class="product-card bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:-translate-y-2" data-category="${product.categoryClass}">
-    <div class="h-56 overflow-hidden">
-        <img src="${product.ImageURL}" 
-            alt="${product.Name}" 
-            class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
-    </div>
-    <div class="p-6">
-        <div class="flex justify-between items-start mb-2">
-            <h3 class="text-xl font-semibold text-secondary">${product.Name}</h3>
-            <span class="bg-amber-500 text-gray-900 text-xs font-semibold px-2 py-1 rounded">${product.categoryName}</span>
-        </div>
-        <p class="text-gray-600 mb-4">${product.Description || 'Описание отсутствует'}</p>
-        
-        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center">
-            
-            <p class="text-amber-600 font-bold text-lg mb-4 sm:mb-0">${product.Price ? product.Price.toLocaleString('ru-RU') : "0"} руб.</p>
-            
-            <div class="flex space-x-2 w-full sm:w-auto">
+         return `
+             <div class="product-card bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:-translate-y-2" data-category="${product.categoryClass}">
+     <div class="h-56 overflow-hidden">
+         <img src="${product.ImageURL}" 
+             alt="${product.Name}" 
+             class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
+     </div>
+     <div class="p-6">
+         <div class="flex justify-between items-start mb-2">
+             <h3 class="text-xl font-semibold text-secondary">${product.Name}</h3>
+             <span class="bg-amber-500 text-gray-900 text-xs font-semibold px-2 py-1 rounded">${product.categoryName}</span>
+         </div>
+         <p class="text-gray-600 mb-4">${product.Description || 'Описание отсутствует'}</p>
+         
+         <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center">
+             
+             <p class="text-amber-600 font-bold text-lg mb-4 sm:mb-0">${product.Price ? product.Price.toLocaleString('ru-RU') : "0"} руб.</p>
+             
+             <div class="flex space-x-2 w-full sm:w-auto">
 
-                <button class="favorite-toggle text-primary bg-primary/10 w-10 h-10 rounded-full hover:bg-primary/20 flex items-center justify-center transition-colors duration-200 focus:outline-none flex-shrink-0"
-                    data-favorite="${isFavourite ? 'true' : 'false'}"
-                    data-product-id="${product.ID_Catalog}"
-                    title="Добавить в избранное">
-                    <i class="${starClass} fa-star text-lg"></i>
-                </button>
-                
-                <button class="add-to-cart bg-primary text-white px-4 py-2 rounded-lg hover:bg-amber-700 transition-colors duration-300 flex items-center justify-center flex-grow" 
-                    data-id="${product.ID_Catalog}" 
-                    data-name="${product.Name}" 
-                    data-price="${product.Price}">
-                    <i class="fas fa-cart-plus mr-2"></i> В корзину
-                </button>
-            </div>
-            </div>
-        </div>
-</div>
-        `;
+                 <button class="favorite-toggle text-primary bg-primary/10 w-10 h-10 rounded-full hover:bg-primary/20 flex items-center justify-center transition-colors duration-200 focus:outline-none flex-shrink-0"
+                     data-favorite="${isFavourite ? 'true' : 'false'}"
+                     data-product-id="${product.ID_Catalog}"
+                     title="Добавить в избранное">
+                     <i class="${starClass} fa-star text-lg"></i>
+                 </button>
+                 
+                 <button class="add-to-cart bg-primary text-white px-4 py-2 rounded-lg hover:bg-amber-700 transition-colors duration-300 flex items-center justify-center flex-grow" 
+                     data-id="${product.ID_Catalog}" 
+                     data-name="${product.Name}" 
+                     data-price="${product.Price}">
+                     <i class="fas fa-cart-plus mr-2"></i> В корзину
+                 </button>
+             </div>
+         </div>
+     </div>
+ </div>
+         `;
     }
     
+    // --- ФУНКЦИЯ РЕНДЕРИНГА (ОБНОВЛЕНА) ---
     function renderProducts(products) {
         const productGrid = document.getElementById('product-grid');
         if (!productGrid) {
@@ -135,9 +141,17 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
+        // 1. СОРТИРОВКА перед рендерингом
+        const sortedProducts = sortProducts(products);
+        
         productGrid.innerHTML = '';
         
-        products.forEach(product => {
+        if (sortedProducts.length === 0) {
+            productGrid.innerHTML = '<div class="col-span-full text-center py-8 text-gray-600">Ничего не найдено.</div>';
+            return;
+        }
+
+        sortedProducts.forEach(product => {
             productGrid.innerHTML += createProductCard(product);
         });
         
@@ -146,7 +160,6 @@ document.addEventListener('DOMContentLoaded', function() {
             button.addEventListener('click', function() {
                 const productId = this.getAttribute('data-product-id');
                 const isCurrentlyFavourite = this.getAttribute('data-favorite') === 'true';
-                
                 toggleFavouriteStatus(this, productId, isCurrentlyFavourite);
             });
         });
@@ -162,6 +175,47 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
+
+    // --- НОВАЯ ФУНКЦИЯ СОРТИРОВКИ ---
+    function sortProducts(products) {
+        const sortBy = sortSelect ? sortSelect.value : 'default';
+        
+        // Создаем копию массива для сортировки, чтобы не изменять исходный allProducts
+        const sorted = [...products];
+
+        sorted.sort((a, b) => {
+            switch (sortBy) {
+                case 'price-asc':
+                    return (a.Price || 0) - (b.Price || 0);
+                case 'price-desc':
+                    return (b.Price || 0) - (a.Price || 0);
+                case 'name-asc':
+                    return a.Name.localeCompare(b.Name, 'ru', { sensitivity: 'base' });
+                case 'name-desc':
+                    return b.Name.localeCompare(a.Name, 'ru', { sensitivity: 'base' });
+                case 'default':
+                default:
+                    // Сортировка по ID_Catalog (или другому стабильному полю)
+                    return a.ID_Catalog - b.ID_Catalog; 
+            }
+        });
+        
+        return sorted;
+    }
+    
+    // --- ФУНКЦИЯ ФИЛЬТРАЦИИ И ПОИСКА (ОБНОВЛЕНА) ---
+    function searchAndFilterProducts() {
+        const searchText = searchInput ? searchInput.value.toLowerCase() : '';
+        
+        const filtered = allProducts.filter(product => 
+            product.Name.toLowerCase().includes(searchText) || 
+            (product.Description && product.Description.toLowerCase().includes(searchText))
+        );
+        
+        // Теперь renderProducts автоматически применит сортировку к отфильтрованному списку
+        renderProducts(filtered);
+    }
+    
     
     async function loadProducts() {
         try {
@@ -173,6 +227,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 get(ref(db, 'Category'))
             ]);
             
+            // ... (логика загрузки и маппинга данных остается прежней)
             if (!catalogSnapshot.exists()) {
                 const productGrid = document.getElementById('product-grid');
                 if (productGrid) {
@@ -206,7 +261,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 return product;
             });
             
-            renderProducts(allProducts);
+            // Вызываем общий фильтр/поиск/сортировку
+            searchAndFilterProducts(); 
             
         } catch (error) {
             console.error("Ошибка загрузки товаров:", error);
@@ -217,35 +273,17 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    function searchProducts() {
-        const searchInput = document.getElementById('searchInput');
-        if (!searchInput) return;
-        
-        const searchText = searchInput.value.toLowerCase();
-        const filtered = allProducts.filter(product => 
-            product.Name.toLowerCase().includes(searchText) || 
-            (product.Description && product.Description.toLowerCase().includes(searchText))
-        );
-        renderProducts(filtered);
-    }
-    
     
     // Добавляем обработчики событий
-    const searchInput = document.getElementById('searchInput');
     if (searchInput) {
-        searchInput.addEventListener('input', searchProducts);
+        searchInput.addEventListener('input', searchAndFilterProducts); // Теперь вызывает общую функцию
     }
     
-    // Обработчики для фильтров (если есть)
-    document.querySelectorAll('.filter-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const category = this.getAttribute('data-category');
-            console.log('Фильтр по категории:', category);
-            // Реализуйте фильтрацию по категориям
-        });
-    });
+    if (sortSelect) {
+        sortSelect.addEventListener('change', searchAndFilterProducts); // Новый обработчик для сортировки
+    }
     
-    // Мобильное меню
+    // ... (Остальные обработчики, такие как мобильное меню, остаются без изменений)
     const mobileMenuButton = document.querySelector('.fa-bars')?.parentElement;
     if (mobileMenuButton) {
         mobileMenuButton.addEventListener('click', function() {

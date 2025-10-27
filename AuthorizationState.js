@@ -6,9 +6,6 @@ function setupAuthListener() {
     if (user) {
       document.getElementById('ProfileDropdown').classList.remove('hidden');
       document.getElementById("SignIn").hidden = true;
-      document.getElementById("Cart").hidden = false;
-      document.getElementById("Cart").classList.add('flex');
-      document.getElementById("SignOut").hidden = false;
       document.getElementById("MobileSignIn").hidden = true;
       document.getElementById("MobileCart").hidden = false;
       document.getElementById("MobileCart").classList.add('flex');
@@ -17,8 +14,6 @@ function setupAuthListener() {
     } else {
       document.getElementById('ProfileDropdown').classList.add('hidden');
       document.getElementById("SignIn").hidden = false;
-      document.getElementById("Cart").hidden = true;
-      document.getElementById("SignOut").hidden = true;
       document.getElementById("MobileSignIn").hidden = false;
       document.getElementById("MobileCart").hidden = true;
       document.getElementById("MobileSignOut").hidden = true;
