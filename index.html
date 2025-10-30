@@ -5,7 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="index, follow">
     <title>Мебель Тимохи</title>
-    <meta name="description" content="Мебель Тимохи – ваш магазин мебели и официальный партнёр. Огромный каталог, актуальные цены и фото. Купите качественную мягкую мебель, диваны или закажите мебель под себя!">
+    <meta name="description" content="Мебель Тимохи - ваш магазин мебели и официальный партнёр. Огромный каталог, актуальные цены и фото. Купите качественную мягкую мебель или закажите мебель под себя!">
+    <meta property="og:title" content="Мебель Тимохи">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://doluker.github.io/FurnitureStore/">
+    <meta property="og:image" content="/Images/couch-solid-full.svg">
+    <meta property="og:description" content="Мебель Тимохи - ваш магазин мебели и официальный партнёр. Огромный каталог, актуальные цены и фото. Купите качественную мягкую мебель или закажите мебель под себя!">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" href="/Images/couch-solid-full.svg" type="image/x-icon">
@@ -48,7 +53,7 @@
 <body class="text-gray-800">
     <header class="fixed w-full bg-white shadow-md z-50">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <a href="#" class="flex items-center text-xl font-bold text-secondary">
+            <a href="#index" class="flex items-center text-xl font-bold text-secondary">
                 <i class="fas fa-couch text-primary mr-2 text-2xl"></i>
                 Мебель Тимохи
             </a>
@@ -59,7 +64,7 @@
         <a href="#about" class="hover:text-primary font-medium">О нас</a>
         <a href="catalog.html" class="hover:text-primary font-medium">Каталог</a>
     </nav>
-    <div id="ProfileDropdown" class="relative">
+    <div id="ProfileDropdown" class="hidden relative">
         <button id="ProfileButton" class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary transition-shadow duration-200 hover:shadow-lg focus:outline-none" aria-expanded="false" aria-controls="ProfileMenu">
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfdeQHOYCOXOexK_QDEY3Ws_lkCY8mWEfRuQ&s" alt="Аватар профиля" class="w-full h-full object-cover">
         </button>
@@ -82,7 +87,7 @@
             </button>
         </div>
     </div>
-    <a id="SignIn" href="authorization.html" class=" py-2 px-6 rounded-full border-2 border-primary bg-white transition-all hover:bg-primary text-primary hover:text-white font-medium">Войти</a>
+    <a id="SignIn" href="authorization.html" class="hidden py-2 px-6 rounded-full border-2 border-primary bg-white transition-all hover:bg-primary text-primary hover:text-white font-medium">Войти</a>
 </div>
             
             <button class="md:hidden text-gray-600 focus:outline-none">
@@ -104,7 +109,7 @@
             </div>
         </div>
     </header>
-    <main>
+    <main id="index">
     <section class="hero-bg pt-32 pb-24 text-white text-center relative">
         <div class="container mx-auto px-4">
             <h1 class="text-4xl md:text-6xl font-bold mb-6">Создайте уют в вашем <span class="text-accent">доме</span></h1>
@@ -236,7 +241,7 @@
 
     <script src="navigation.js"></script>
     <script src="profileDropdown.js"></script>
-    <script rel="preload" type="module" src="AuthorizationState.js"></script>
+    <script type="module" src="AuthorizationState.js"></script>
     <script type="module" src="SignOut.js"></script>
 </body>
 </html>

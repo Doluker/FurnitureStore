@@ -1,5 +1,3 @@
-// navigation.js
-
 document.addEventListener('DOMContentLoaded', () => {
     // 1. Логика для мобильного меню
     const mobileMenuButton = document.querySelector('.fa-bars')?.parentElement;
@@ -11,7 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 2. Логика плавной прокрутки для якорных ссылок
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             e.preventDefault();
@@ -23,7 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (targetElement) {
                 // Плавная прокрутка
                 window.scrollTo({
-                    // top: targetElement.offsetTop - 80, // Вычитаем высоту шапки (80px)
                     top: targetElement.getBoundingClientRect().top + window.scrollY - 80, 
                     behavior: 'smooth'
                 });

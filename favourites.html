@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, follow">
     <title>Мебель Тимохи - Избранное</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -61,7 +62,7 @@
                     <a href="index.html#about" class="hover:text-primary font-medium">О нас</a>
                     <a href="catalog.html" class="hover:text-primary font-medium">Каталог</a>
                 </nav>
-               <div id="ProfileDropdown" class="relative">
+               <div id="ProfileDropdown" class="hidden relative">
         <button id="ProfileButton" class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary transition-shadow duration-200 hover:shadow-lg focus:outline-none" aria-expanded="false" aria-controls="ProfileMenu">
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfdeQHOYCOXOexK_QDEY3Ws_lkCY8mWEfRuQ&s" alt="Аватар профиля" class="w-full h-full object-cover">
         </button>
@@ -84,7 +85,7 @@
             </button>
         </div>
     </div>
-               <a id="SignIn" href="authorization.html" class=" py-2 px-6 rounded-full border-2 border-primary bg-white transition-all hover:bg-primary text-primary hover:text-white font-medium">Войти</a>
+               <a id="SignIn" href="authorization.html" class="hidden py-2 px-6 rounded-full border-2 border-primary bg-white transition-all hover:bg-primary text-primary hover:text-white font-medium">Войти</a>
             </div>
             
             <button class="md:hidden text-gray-600 focus:outline-none">
@@ -167,7 +168,7 @@
 <script src="navigation.js"></script>
 <script src="profileDropdown.js"></script>
 <script type="module" src="favourites.js"></script>
-<script rel="preload" type="module" src="AuthorizationState.js"></script>
+<script type="module" src="AuthorizationState.js"></script>
 <script type="module" src="SignOut.js"></script>
 </body>
 </html>
