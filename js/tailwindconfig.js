@@ -20,11 +20,3 @@ tailwind.config = {
         }
     }
 }
-module.exports = {
-    purge: {
-        content: ['./*.html'],
-        options: {
-            safelist: [''],
-        },
-    },
-}
