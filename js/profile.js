@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Элементы DOM
     const loadingSpinner = document.getElementById('loading-spinner');
     const profileContent = document.getElementById('profile-content');
-    const authRequiredMessage = document.getElementById('auth-required-message');
     
     const userNameElement = document.getElementById('user-name');
     const userEmailElement = document.getElementById('user-email');
@@ -32,12 +31,9 @@ document.addEventListener('DOMContentLoaded', function() {
         // Скрываем все
         loadingSpinner.classList.add('hidden');
         profileContent.classList.add('hidden');
-        authRequiredMessage.classList.add('hidden');
 
         if (user) {
-            // --- Пользователь АВТОРИЗОВАН ---
-            
-            // Показываем контент
+
             profileContent.classList.remove('hidden');
 
             // Заполняем данные
@@ -58,10 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
         } else {
-            // --- Пользователь НЕ АВТОРИЗОВАН ---
-            
-            // Показываем сообщение о необходимости входа
-            authRequiredMessage.classList.remove('hidden');
+            window.location.href = "index.html"
         }
     });
 
@@ -93,14 +86,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 }
             });
-        });
-    }
-    
-    // Мобильное меню (для полноты)
-    const mobileMenuButton = document.querySelector('.fa-bars')?.parentElement;
-    if (mobileMenuButton) {
-        mobileMenuButton.addEventListener('click', function() {
-            document.querySelector('.mobile-menu')?.classList.toggle('hidden');
         });
     }
 });

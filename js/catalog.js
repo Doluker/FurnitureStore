@@ -94,20 +94,23 @@ document.addEventListener('DOMContentLoaded', function() {
          const starClass = isFavourite ? 'fas' : 'far';
 
          return `
-             <div class="product-card bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:-translate-y-2" data-category="${product.categoryClass}">
-     <div class="h-56 overflow-hidden">
-         <img src="${product.ImageURL}" 
-             alt="${product.Name}" 
+             <div class="product-card bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:-translate-y-2 flex flex-col h-full" data-category="${product.categoryClass}">
+     <div class="h-56 overflow-hidden flex-shrink-0">
+         <img src="${product.ImageURL}" loading="lazy" alt="${product.Name}" 
              class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
      </div>
-     <div class="p-6">
-         <div class="flex justify-between items-start mb-2">
-             <h3 class="text-xl font-semibold text-secondary">${product.Name}</h3>
-             <span class="bg-amber-500 text-gray-900 text-xs font-semibold px-2 py-1 rounded">${product.categoryName}</span>
-         </div>
-         <p class="text-gray-600 mb-4">${product.Description || 'Описание отсутствует'}</p>
+     
+     <div class="p-6 flex-grow flex flex-col justify-between">
          
-         <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center">
+         <div>
+             <div class="flex justify-between items-start mb-2">
+                 <h3 class="text-xl font-semibold text-secondary">${product.Name}</h3>
+                 <span class="bg-amber-500 text-gray-900 text-xs font-semibold px-2 py-1 rounded">${product.categoryName}</span>
+             </div>
+             <p class="text-gray-600 mb-4">${product.Description || 'Описание отсутствует'}</p>
+         </div>
+         
+         <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mt-auto">
              
              <p class="text-amber-600 font-bold text-lg mb-4 sm:mb-0">${product.Price ? product.Price.toLocaleString('ru-RU') : "0"} руб.</p>
              
@@ -129,7 +132,7 @@ document.addEventListener('DOMContentLoaded', function() {
              </div>
          </div>
      </div>
- </div>
+</div>
          `;
     }
     
@@ -176,11 +179,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // --- НОВАЯ ФУНКЦИЯ СОРТИРОВКИ ---
     function sortProducts(products) {
         const sortBy = sortSelect ? sortSelect.value : 'default';
         
-        // Создаем копию массива для сортировки, чтобы не изменять исходный allProducts
         const sorted = [...products];
 
         sorted.sort((a, b) => {
@@ -195,7 +196,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     return b.Name.localeCompare(a.Name, 'ru', { sensitivity: 'base' });
                 case 'default':
                 default:
-                    // Сортировка по ID_Catalog (или другому стабильному полю)
                     return a.ID_Catalog - b.ID_Catalog; 
             }
         });

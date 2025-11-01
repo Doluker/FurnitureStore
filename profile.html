@@ -8,11 +8,11 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" href="/Images/couch-solid-full.svg" type="image/x-icon">
-    <script src="js/tailwindconfig.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
-        
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" as="style">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap">
+    <script defer src="js/tailwindconfig.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>        
         html {
             scroll-behavior: smooth;
         }
@@ -142,15 +142,6 @@
                             <i class="fas fa-sign-out-alt mr-2"></i> Выйти из аккаунта
                         </button>
                     </div>
-                    
-                    <div id="auth-required-message" class="hidden text-center py-12">
-                        <i class="fas fa-user-lock text-5xl text-primary mb-4"></i>
-                        <p class="text-xl text-gray-700 font-semibold mb-4">Для доступа к этой странице необходимо войти.</p>
-                        <a href="authorization.html" class="inline-block bg-primary text-white px-6 py-3 rounded-full hover:bg-amber-700 transition-colors duration-300 font-medium">
-                            Перейти к входу
-                        </a>
-                    </div>
-
                 </div>
             </div>
         </section>
@@ -177,10 +168,10 @@
             </div>
         </div>
     </footer>
-<script src="js/navigation.js"></script>
-<script src="js/profileDropdown.js"></script>
-<script type="module" src="js/profile.js"></script>
-<script type="module" src="js/AuthorizationState.js"></script>
-<script type="module" src="js/SignOut.js"></script>
+<script defer src="js/navigation.js"></script>
+<script defer src="js/profileDropdown.js"></script>
+<script type="module" defer src="js/profile.js"></script>
+<script type="module" defer src="js/AuthorizationState.js"></script>
+<script type="module" defer src="js/SignOut.js"></script>
 </body>
 </html>

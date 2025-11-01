@@ -8,11 +8,12 @@
     <meta name="description" content="Мебель Тимохи - ваш магазин мебели с огромный каталогом. Купите качественную мягкую мебель или закажите мебель под себя!">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="js/tailwindconfig.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
-        
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" as="style">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="icon" href="/Images/couch-solid-full.svg" type="image/x-icon">
+    <script defer src="js/tailwindconfig.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>        
         html {
             scroll-behavior: smooth;
         }
@@ -218,10 +219,11 @@
             </div>
         </div>
     </footer>
-<script src="js/navigation.js"></script>
-<script src="js/profileDropdown.js"></script>
-<script type="module" src="js/catalog.js"></script>
-<script type="module" src="js/AuthorizationState.js"></script>
-<script type="module" src="js/SignOut.js"></script>
+
+<script defer src="js/navigation.js"></script>
+<script defer src="js/profileDropdown.js"></script>
+<script type="module" defer src="js/catalog.js"></script>
+<script type="module" defer src="js/AuthorizationState.js"></script>
+<script type="module" defer src="js/SignOut.js"></script>
 </body>
 </html>
