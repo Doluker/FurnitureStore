@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     // 1. Логика для мобильного меню
-    const mobileMenuButton = document.querySelector('.fa-bars')?.parentElement;
+    const mobileMenuButton = document.getElementById('MobileMenuButton');
     const mobileMenu = document.querySelector('.mobile-menu');
 
     if (mobileMenuButton && mobileMenu) {
@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 // Закрываем мобильное меню после клика, если оно открыто
                 if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
-                    mobileMenu.classList.add('hidden');
+                    mobileMenu.classList.toggle('hidden');
                 }
             }
         });
